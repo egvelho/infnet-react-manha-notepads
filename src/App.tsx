@@ -4,17 +4,18 @@
 // Deletar notepad no modal
 
 import "@fontsource/roboto";
-import './App.css';
-import { useState, useEffect } from 'react';
-import { AppBar } from './components/AppBar/AppBar';
-import { CreateNotepadForm } from './components/CreateNotepadForm/CreateNotepadForm';
-import { NotepadList } from './components/NotepadList/NotepadList';
-import { Modal } from './components/Modal/Modal';
-import { Card } from './components/Card/Card';
+import "./App.css";
+import { useState, useEffect } from "react";
+import { AppBar } from "./components/AppBar/AppBar";
+import { CreateNotepadForm } from "./components/CreateNotepadForm/CreateNotepadForm";
+import { NotepadList } from "./components/NotepadList/NotepadList";
+import { Modal } from "./components/Modal/Modal";
+import { Card } from "./components/Card/Card";
+import type { Notepad } from "./types";
 
-const notepadsUrl = 'https://notepads.eduardovelho.com/notepads';
+const notepadsUrl = "https://notepads.eduardovelho.com/notepads";
 
-const initialNotepads = [];
+const initialNotepads: Notepad[] = [];
 const initialModalOpen = false;
 
 export default function App() {
@@ -37,13 +38,13 @@ export default function App() {
   }
 
   function onCloseCreateNotepadModal() {
-     setCreateNotepadModalOpen(false);
+    setCreateNotepadModalOpen(false);
   }
 
   useEffect(() => {
     loadNotepads();
   }, []);
-  
+
   return (
     <div>
       <AppBar onClickCreateNotepad={onClickCreateNotepad} />
@@ -51,16 +52,18 @@ export default function App() {
         open={createNotepadModalOpen}
         onRequestClose={onCloseCreateNotepadModal}
       >
-        <CreateNotepadForm
-          onCreateNotepadSuccess={onCreateNotepadSuccess}
-        />
+        <CreateNotepadForm onCreateNotepadSuccess={onCreateNotepadSuccess} />
       </Modal>
       <NotepadContainer notepads={notepads} />
     </div>
   );
 }
 
-function NotepadContainer({ notepads }) {
+type NotepadContainerProps = {
+  notepads: Notepad[];
+};
+
+function NotepadContainer({ notepads }: NotepadContainerProps) {
   const [modalOpen, setModalOpen] = useState(initialModalOpen);
 
   function onModalClose() {
@@ -74,7 +77,7 @@ function NotepadContainer({ notepads }) {
       </Modal>
       <NotepadList
         notepads={notepads}
-        onClickItem={notepad => {
+        onClickItem={(notepad) => {
           setModalOpen(true);
         }}
       />
