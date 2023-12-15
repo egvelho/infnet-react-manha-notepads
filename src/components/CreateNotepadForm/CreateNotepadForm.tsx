@@ -119,7 +119,7 @@ export function CreateNotepadForm({
     });
 
     if (response.ok) {
-      const responseJson = await response.json();
+      await response.json();
       alert("Notepad criado com sucesso!");
       onCreateNotepadSuccess();
     } else {

@@ -77,7 +77,7 @@ function NotepadContainer({ notepads }: NotepadContainerProps) {
       </Modal>
       <NotepadList
         notepads={notepads}
-        onClickItem={(notepad) => {
+        onClickItem={() => {
           setModalOpen(true);
         }}
       />
